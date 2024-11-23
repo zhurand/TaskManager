@@ -22,40 +22,94 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         TaskList tasks = null;
+        Task task = null;
         System.out.print(
                         "1 - Создать список задач\n" +
-                        "2 - Напечатать список(и) задач\n" +
-                        "3 - Выйти из программы\n");
+                        "2 - Редактировать список задач\n" +
+                        "3 - Удалить список задач\n" +
+                        "4 - Напечатать список(и) задач\n" +
+                        "5 - Выйти из программы\n");
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("\nВведите команду: ");
             String option = scanner.nextLine();
-            if (option.equals("3")) {
+            if (option.equals("5")) {
                 break;
             }
             switch (option) {
                 case "1": {
                     System.out.print("Введите название для списка задач: ");
                     String nameList = scanner.nextLine();
-                    tasks = new TaskList(nameList);
+                    if (tasks == null) {
+                        tasks = new TaskList(nameList);
+                    }
+                    else {
+                        tasks.setName(nameList);
+                    }
                     while (true) {
-                        System.out.print("Введите задачу: ");
-                        String[] line = scanner.nextLine().split(" ");
-                        String priorityTask = line[0];
+                        System.out.print("Введите номер задачи: ");
+                        String priorityTask = scanner.nextLine();
                         if (priorityTask.isEmpty()) {
                             break;
                         }
-                        String nameTask = line[1];
-                        Task task = new Task(priorityTask, nameTask);
+                        System.out.print("Введите задачу: ");
+                        String nameTask = scanner.nextLine();
+                        task = new Task(priorityTask, nameTask);
                         tasks.addTask(task);
                     }
                     break;
                 }
                 case "2": {
+                    if (tasks == null) {
+                        System.out.println("Нет созданных списков");
+                        break;
+                    }
+                    else {
+                        System.out.print("Введите имя списка, которое хотите редактировать: ");
+                        String nameOfList = scanner.nextLine();
+                        if (!tasks.existsTaskList(nameOfList)) {
+                            System.out.println("Список задач с таким именем не найден");
+                        }
+                        else {
+                            System.out.print(
+                                    "1 - Редактировать описание задачи\n" +
+                                    "2 - Изменить статус задачи (да - задача выполнена, нет - не выполнена)\n");
+                            System.out.print("Введите номер опции: ");
+                            String optionEditTaskList = scanner.nextLine();
+                            switch (optionEditTaskList) {
+                                case "1": {
+                                    System.out.print("Введите номер задачи: ");
+                                    String idTask = scanner.nextLine();
+                                    System.out.print(
+                                            "Вы хотите изменить задачу: " +
+                                            tasks.getTaskDescription(nameOfList, idTask) + "\n");
+                                    System.out.print("Введите новое описание задачи: ");
+                                    String newTaskDescription = scanner.nextLine();
+                                    tasks.editTaskDescription(nameOfList, idTask, newTaskDescription);
+                                    break;
+                                }
+                                case "2": {
+                                    System.out.print("Введите номер задачи: ");
+                                    String idTask = scanner.nextLine();
+                                    System.out.print("Введите новый статус для задачи: ");
+                                    String newStatus = scanner.nextLine();
+                                    tasks.editStatusTask(nameOfList, idTask, newStatus);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                case "3": {
+                    System.out.println("В настоящий момент данная функция недоступна");
+                    break;
+                }
+                case "4": {
                     if (tasks != null) {
                         tasks.printTaskList();
                         break;
-                    } else {
+                    }
+                    else {
                         System.out.println("Нет созданных списков");
                         break;
                     }

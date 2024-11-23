@@ -1,10 +1,12 @@
+import java.util.HashMap;
+
 public class Task {
     private String priority, name;
-    private Boolean status;
+    private String status;
     public Task(String priority, String name) {
         this.priority = priority;
         this.name = name;
-        this.status = false;
+        this.status = "нет";
     }
     public String getPriority() {
         return priority;
@@ -12,26 +14,16 @@ public class Task {
     public String getName() {
         return name;
     }
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
-    public String setPriority(String priority) {
-        return this.priority;
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
-    public String setName(String name) {
-        return this.name;
+    public void setName(String name) {
+        this.name = name;
     }
-    public Boolean setStatus(String status) {
-        return this.status;
-    }
-    public String toString() {
-        String checkbox = null;
-        if (!status) {
-            checkbox = "X";
-        }
-        else {
-            checkbox = "V";
-        }
-        return "#" + priority + " " + name + " [" + checkbox + "]";
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
