@@ -47,14 +47,12 @@ public class Main {
                         tasks.setName(nameList);
                     }
                     while (true) {
-                        System.out.print("Введите номер задачи: ");
-                        String priorityTask = scanner.nextLine();
-                        if (priorityTask.isEmpty()) {
-                            break;
-                        }
                         System.out.print("Введите задачу: ");
                         String nameTask = scanner.nextLine();
-                        task = new Task(priorityTask, nameTask);
+                        if (nameTask.isEmpty()) {
+                            break;
+                        }
+                        task = new Task(nameTask);
                         tasks.addTask(task);
                     }
                     break;
@@ -79,7 +77,7 @@ public class Main {
                             switch (optionEditTaskList) {
                                 case "1": {
                                     System.out.print("Введите номер задачи: ");
-                                    String idTask = scanner.nextLine();
+                                    int idTask = Integer.parseInt(scanner.nextLine());
                                     System.out.print(
                                             "Вы хотите изменить задачу: " +
                                             tasks.getTaskDescription(nameOfList, idTask) + "\n");
@@ -90,7 +88,7 @@ public class Main {
                                 }
                                 case "2": {
                                     System.out.print("Введите номер задачи: ");
-                                    String idTask = scanner.nextLine();
+                                    int idTask = Integer.parseInt(scanner.nextLine());
                                     System.out.print("Введите новый статус для задачи: ");
                                     String newStatus = scanner.nextLine();
                                     tasks.editStatusTask(nameOfList, idTask, newStatus);
