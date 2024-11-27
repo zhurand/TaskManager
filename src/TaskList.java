@@ -62,4 +62,11 @@ public class TaskList{
         HashMap task = status.get(nameOfList);
         task.put(idTask, newStatus);
     }
+    public void deleteStatusList(String nameTaskList) {
+        status.remove(nameTaskList);
+    }
+    public void deleteTaskLisk(String nameTaskList) {
+        taskList.remove(nameTaskList);
+        deleteStatusList(nameTaskList);
+    }
 }

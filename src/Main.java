@@ -99,7 +99,31 @@ public class Main {
                     }
                 }
                 case "3": {
-                    System.out.println("В настоящий момент данная функция недоступна");
+                    if (tasks == null) {
+                        System.out.println("Нет созданных списков");
+                        break;
+                    }
+                    System.out.print("Введите название списка, чтобы его удалить: ");
+                    String nameTaskList = scanner.nextLine();
+                    if (!tasks.existsTaskList(nameTaskList)) {
+                        System.out.print("Список задач с таким именем не найден");
+                    }
+                    else {
+                        System.out.print("Список задач " + "\"" + nameTaskList + "\"" + " будет удален.\n" +
+                                "Вы уверены? (1 - подтверждаю/ 0 - отмена)\n");
+                        String answer = scanner.nextLine();
+                        if (answer.equals("1")) {
+                            tasks.deleteTaskLisk(nameTaskList);
+                            System.out.print("Список " + "\"" + nameTaskList + "\"" + " был удален.");
+                        }
+                        else if (answer.equals("0")) {
+                            break;
+                        }
+                        else {
+                            System.out.print("Некорректный ввод");
+                            break;
+                        }
+                    }
                     break;
                 }
                 case "4": {
