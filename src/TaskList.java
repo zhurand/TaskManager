@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class TaskList{
     private HashMap<String, HashMap> taskList = new HashMap<>();
@@ -9,6 +10,7 @@ public class TaskList{
     private int taskPriority;
     public TaskList(String name) {
         this.name = name;
+        taskList.put(this.name, taskInDict);
     }
     public String getName() {
         return name;
@@ -32,13 +34,23 @@ public class TaskList{
     }
     public void printTaskList() {
         for (String key : taskList.keySet()) {
-            System.out.print(key + "\n");
+            System.out.print("\n### " + key + " ###\n");
             int iter = 1;
+            if (taskList.get(key).values().isEmpty()) {
+                System.out.print("Список пуст\n" + "----------");
+                break;
+            }
             for (Object value : taskList.get(key).values()) {
-                System.out.println(iter + " " + value + " [" +
-                        status.get(key).get(iter) + "]");
+                if (value.equals("xxxxx")) {
+                    System.out.println(iter + " " + value);
+                }
+                else {
+                    System.out.println(iter + " " + value + " [" +
+                            status.get(key).get(iter) + "]");
+                }
                 iter += 1;
             }
+            System.out.print("----------");
         }
     }
     public Boolean existsTaskList(String nameTaskList) {
@@ -65,8 +77,18 @@ public class TaskList{
     public void deleteStatusList(String nameTaskList) {
         status.remove(nameTaskList);
     }
-    public void deleteTaskLisk(String nameTaskList) {
+    public void deleteTaskList(String nameTaskList) {
         taskList.remove(nameTaskList);
         deleteStatusList(nameTaskList);
+    }
+    public void addNewTask(String nameTaskList, String taskDescription) {
+        HashMap tasks = taskList.get(nameTaskList);
+        tasks.put(tasks.size() + 1, taskDescription);
+        HashMap statusTasks = status.get(nameTaskList);
+        statusTasks.put(tasks.size(), "нет");
+    }
+    public void deleteTask(String nameTaskList, int idTask) {
+        HashMap tasks = taskList.get(nameTaskList);
+        tasks.put(idTask, "xxxxx");
     }
 }

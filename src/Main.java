@@ -71,7 +71,9 @@ public class Main {
                         else {
                             System.out.print(
                                     "1 - Редактировать описание задачи\n" +
-                                    "2 - Изменить статус задачи (да - задача выполнена, нет - не выполнена)\n");
+                                    "2 - Изменить статус задачи (да - задача выполнена, нет - не выполнена)\n" +
+                                    "3 - Добавить задачу\n" +
+                                    "4 - Удалить задачу\n");
                             System.out.print("Введите номер опции: ");
                             String optionEditTaskList = scanner.nextLine();
                             switch (optionEditTaskList) {
@@ -92,6 +94,19 @@ public class Main {
                                     System.out.print("Введите новый статус для задачи: ");
                                     String newStatus = scanner.nextLine();
                                     tasks.editStatusTask(nameOfList, idTask, newStatus);
+                                    break;
+                                }
+                                case "3": {
+                                    System.out.print("Введите задачу: ");
+                                    String TaskDescription = scanner.nextLine();
+                                    tasks.addNewTask(nameOfList, TaskDescription);
+                                    break;
+                                }
+                                case "4": {
+                                    System.out.print("Введите номер задачи, чтобы удалить ее: ");
+                                    int idTask = Integer.parseInt(scanner.nextLine());
+                                    tasks.deleteTask(nameOfList, idTask);
+                                    break;
                                 }
                             }
                         }
@@ -113,7 +128,7 @@ public class Main {
                                 "Вы уверены? (1 - подтверждаю/ 0 - отмена)\n");
                         String answer = scanner.nextLine();
                         if (answer.equals("1")) {
-                            tasks.deleteTaskLisk(nameTaskList);
+                            tasks.deleteTaskList(nameTaskList);
                             System.out.print("Список " + "\"" + nameTaskList + "\"" + " был удален.");
                         }
                         else if (answer.equals("0")) {
