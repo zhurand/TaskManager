@@ -41,13 +41,8 @@ public class TaskList{
                 break;
             }
             for (Object value : taskList.get(key).values()) {
-                if (value.equals("xxxxx")) {
-                    System.out.println(iter + " " + value);
-                }
-                else {
-                    System.out.println(iter + " " + value + " [" +
-                            status.get(key).get(iter) + "]");
-                }
+                System.out.println(iter + " " + value + " [" +
+                        status.get(key).get(iter) + "]");
                 iter += 1;
             }
             System.out.print("----------");
@@ -88,7 +83,25 @@ public class TaskList{
         statusTasks.put(tasks.size(), "нет");
     }
     public void deleteTask(String nameTaskList, int idTask) {
-        HashMap tasks = taskList.get(nameTaskList);
-        tasks.put(idTask, "xxxxx");
+        int idTaskForMapTasks = idTask;
+        int idTaskForMapStatus = idTask;
+
+        HashMap mapTasks = taskList.get(nameTaskList);
+        HashMap mapTasksCopy = (HashMap) mapTasks.clone();
+        for (int iter = idTaskForMapTasks + 1; iter <= mapTasks.size(); iter++) {
+            mapTasks.put(idTaskForMapTasks, mapTasksCopy.get(iter));
+            idTaskForMapTasks += 1;
+        }
+        mapTasks.remove(mapTasks.size());
+        mapTasksCopy.clear();
+
+        HashMap mapStatus = status.get(nameTaskList);
+        HashMap mapStatusCopy = (HashMap) mapStatus.clone();
+        for (int iter = idTaskForMapStatus + 1; iter <= mapStatus.size(); iter++) {
+            mapStatus.put(idTaskForMapStatus, mapStatusCopy.get(iter));
+            idTaskForMapStatus += 1;
+        }
+        mapStatus.remove(mapStatus.size());
+        mapStatusCopy.clear();
     }
 }
