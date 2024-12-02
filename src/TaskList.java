@@ -22,10 +22,20 @@ public class TaskList{
         if (taskList.isEmpty() || taskList.get(name) == null) {
             taskPriority = 1;
             taskInDict.clear();
+            statusInDict.clear();
         }
         else {
+            taskPriority = taskList.get(name).size() + 1;
+        }
+        if (task.getOptionCreation().equals("2")) {
+            System.out.println("2");
             HashMap tasks = taskList.get(name);
-            taskPriority = tasks.size() + 1;
+            System.out.println(tasks);
+            tasks.put(tasks.size() + 1, task.getName());
+            HashMap statusTasks = status.get(name);
+            System.out.println(statusTasks);
+            statusTasks.put(tasks.size(), task.getStatus());
+            System.out.println(statusTasks);
         }
         taskInDict.put(taskPriority, task.getName());
         taskList.put(name, (HashMap) taskInDict.clone());
@@ -33,6 +43,8 @@ public class TaskList{
         status.put(name, (HashMap) statusInDict.clone());
     }
     public void printTaskList() {
+        System.out.println(taskList);
+        System.out.println(status);
         for (String key : taskList.keySet()) {
             System.out.print("\n### " + key + " ###\n");
             int iter = 1;
@@ -75,12 +87,6 @@ public class TaskList{
     public void deleteTaskList(String nameTaskList) {
         taskList.remove(nameTaskList);
         deleteStatusList(nameTaskList);
-    }
-    public void addNewTask(String nameTaskList, String taskDescription) {
-        HashMap tasks = taskList.get(nameTaskList);
-        tasks.put(tasks.size() + 1, taskDescription);
-        HashMap statusTasks = status.get(nameTaskList);
-        statusTasks.put(tasks.size(), "нет");
     }
     public void deleteTask(String nameTaskList, int idTask) {
         int idTaskForMapTasks = idTask;
