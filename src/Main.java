@@ -52,7 +52,7 @@ public class Main {
                         if (nameTask.isEmpty()) {
                             break;
                         }
-                        task = new Task(nameTask, option);
+                        task = new Task(nameList, nameTask, option);
                         tasks.addTask(task);
                     }
                     break;
@@ -98,10 +98,8 @@ public class Main {
                                 }
                                 case "3": {
                                     System.out.print("Введите задачу: ");
-                                    String TaskDescription = scanner.nextLine();
-//                                  tasks.addNewTask(nameOfList, TaskDescription);
-                                    tasks.setName(nameOfList);
-                                    task = new Task(TaskDescription, option);
+                                    String taskDescription = scanner.nextLine();
+                                    task = new Task(nameOfList, taskDescription, option);
                                     tasks.addTask(task);
                                     break;
                                 }

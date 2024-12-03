@@ -19,32 +19,28 @@ public class TaskList{
         this.name = name;
     }
     public void addTask(Task task) {
-        if (taskList.isEmpty() || taskList.get(name) == null) {
+        if (taskList.isEmpty() || taskList.get(task.getNameTaskList()) == null) {
             taskPriority = 1;
             taskInDict.clear();
             statusInDict.clear();
         }
         else {
-            taskPriority = taskList.get(name).size() + 1;
+            taskPriority = taskList.get(task.getNameTaskList()).size() + 1;
         }
         if (task.getOptionCreation().equals("2")) {
-            System.out.println("2");
-            HashMap tasks = taskList.get(name);
-            System.out.println(tasks);
-            tasks.put(tasks.size() + 1, task.getName());
-            HashMap statusTasks = status.get(name);
-            System.out.println(statusTasks);
-            statusTasks.put(tasks.size(), task.getStatus());
-            System.out.println(statusTasks);
+            taskList.get(task.getNameTaskList()).put(
+                    taskList.get(task.getNameTaskList()).size() + 1, task.getName());
+            status.get(task.getNameTaskList()).put(
+                    taskList.get(task.getNameTaskList()).size(), task.getStatus());
         }
-        taskInDict.put(taskPriority, task.getName());
-        taskList.put(name, (HashMap) taskInDict.clone());
-        statusInDict.put(taskPriority, task.getStatus());
-        status.put(name, (HashMap) statusInDict.clone());
+        else {
+            taskInDict.put(taskPriority, task.getName());
+            taskList.put(name, (HashMap) taskInDict.clone());
+            statusInDict.put(taskPriority, task.getStatus());
+            status.put(name, (HashMap) statusInDict.clone());
+        }
     }
     public void printTaskList() {
-        System.out.println(taskList);
-        System.out.println(status);
         for (String key : taskList.keySet()) {
             System.out.print("\n### " + key + " ###\n");
             int iter = 1;
