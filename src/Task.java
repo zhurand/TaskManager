@@ -1,31 +1,33 @@
-import java.util.HashMap;
-
 public class Task {
-    private String name, status, optionCreation, nameTaskList;
-    public Task(String nameTaskList, String name, String optionCreation) {
+    private String nameTaskList, taskDescription, taskMakeOption, taskStatus;
+    public Task(String nameTaskList, String taskDescription, String taskMakeOption) {
         this.nameTaskList = nameTaskList;
-        this.name = name;
-        this.status = "нет";
-        this.optionCreation = optionCreation;
+        this.taskDescription = taskDescription;
+        this.taskMakeOption = taskMakeOption;
+        this.taskStatus = "нет";
     }
-    public String getName() {
-        return name;
+    public String getNameTaskList() {
+        return nameTaskList;
     }
-    public String getStatus() {
-        return status;
+    public void setNameTaskList(String nameTaskList) {
+        this.nameTaskList = nameTaskList;
     }
-    public void setName(String name) {
-        this.name = name;
+    public String getTaskDescription() {
+        return taskDescription;
     }
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
-    public void setOptionCreation(String optionCreation) {
-        this.optionCreation = optionCreation;
+    public void setTaskMakeOption(String taskMakeOption) {
+        this.taskMakeOption = taskMakeOption;
     }
-    public String getOptionCreation() {
-        return optionCreation;
+    public String getTaskMakeOption() {
+        return taskMakeOption;
     }
-    public String getNameTaskList() { return nameTaskList; }
-    public void setNameTaskList(String nameTaskList) { this.nameTaskList = nameTaskList; }
+    public String getTaskStatus() {
+        return taskStatus;
+    }
+    public void setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
+    }
 }

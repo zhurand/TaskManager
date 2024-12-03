@@ -39,20 +39,20 @@ public class Main {
             switch (option) {
                 case "1": {
                     System.out.print("Введите название для списка задач: ");
-                    String nameList = scanner.nextLine();
+                    String nameTaskList = scanner.nextLine();
                     if (tasks == null) {
-                        tasks = new TaskList(nameList);
+                        tasks = new TaskList(nameTaskList);
                     }
                     else {
-                        tasks.setName(nameList);
+                        tasks.setNameTaskList(nameTaskList);
                     }
                     while (true) {
                         System.out.print("Введите задачу: ");
-                        String nameTask = scanner.nextLine();
-                        if (nameTask.isEmpty()) {
+                        String taskDescription = scanner.nextLine();
+                        if (taskDescription.isEmpty()) {
                             break;
                         }
-                        task = new Task(nameList, nameTask, option);
+                        task = new Task(nameTaskList, taskDescription, option);
                         tasks.addTask(task);
                     }
                     break;
@@ -64,8 +64,8 @@ public class Main {
                     }
                     else {
                         System.out.print("Введите имя списка, которое хотите редактировать: ");
-                        String nameOfList = scanner.nextLine();
-                        if (!tasks.existsTaskList(nameOfList)) {
+                        String nameTaskList = scanner.nextLine();
+                        if (!tasks.existsTaskList(nameTaskList)) {
                             System.out.println("Список задач с таким именем не найден");
                         }
                         else {
@@ -79,34 +79,34 @@ public class Main {
                             switch (optionEditTaskList) {
                                 case "1": {
                                     System.out.print("Введите номер задачи: ");
-                                    int idTask = Integer.parseInt(scanner.nextLine());
+                                    int taskID = Integer.parseInt(scanner.nextLine());
                                     System.out.print(
                                             "Вы хотите изменить задачу: " +
-                                            tasks.getTaskDescription(nameOfList, idTask) + "\n");
+                                            tasks.getTaskDescription(nameTaskList, taskID) + "\n");
                                     System.out.print("Введите новое описание задачи: ");
                                     String newTaskDescription = scanner.nextLine();
-                                    tasks.editTaskDescription(nameOfList, idTask, newTaskDescription);
+                                    tasks.editTaskDescription(nameTaskList, taskID, newTaskDescription);
                                     break;
                                 }
                                 case "2": {
                                     System.out.print("Введите номер задачи: ");
-                                    int idTask = Integer.parseInt(scanner.nextLine());
+                                    int taskID = Integer.parseInt(scanner.nextLine());
                                     System.out.print("Введите новый статус для задачи: ");
                                     String newStatus = scanner.nextLine();
-                                    tasks.editStatusTask(nameOfList, idTask, newStatus);
+                                    tasks.editStatusTask(nameTaskList, taskID, newStatus);
                                     break;
                                 }
                                 case "3": {
                                     System.out.print("Введите задачу: ");
                                     String taskDescription = scanner.nextLine();
-                                    task = new Task(nameOfList, taskDescription, option);
+                                    task = new Task(nameTaskList, taskDescription, option);
                                     tasks.addTask(task);
                                     break;
                                 }
                                 case "4": {
                                     System.out.print("Введите номер задачи, чтобы удалить ее: ");
-                                    int idTask = Integer.parseInt(scanner.nextLine());
-                                    tasks.deleteTask(nameOfList, idTask);
+                                    int taskID = Integer.parseInt(scanner.nextLine());
+                                    tasks.deleteTask(nameTaskList, taskID);
                                     break;
                                 }
                             }

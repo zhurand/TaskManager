@@ -1,43 +1,42 @@
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class TaskList{
     private HashMap<String, HashMap> taskList = new HashMap<>();
+    private HashMap<String, HashMap> status = new HashMap<>();
     private HashMap<Integer, String> taskInDict = new HashMap<>();;
     private HashMap<Integer, String> statusInDict = new HashMap<>();
-    private HashMap<String, HashMap> status = new HashMap<>();
-    private String name;
-    private int taskPriority;
-    public TaskList(String name) {
-        this.name = name;
-        taskList.put(this.name, taskInDict);
+    private String nameTaskList;
+    private int taskID;
+    public TaskList(String nameTaskList) {
+        this.nameTaskList = nameTaskList;
+        taskList.put(this.nameTaskList, taskInDict);
     }
-    public String getName() {
-        return name;
+    public String getNameTaskList() {
+        return nameTaskList;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setNameTaskList(String nameTaskList) {
+        this.nameTaskList = nameTaskList;
     }
     public void addTask(Task task) {
         if (taskList.isEmpty() || taskList.get(task.getNameTaskList()) == null) {
-            taskPriority = 1;
+            taskID = 1;
             taskInDict.clear();
             statusInDict.clear();
         }
         else {
-            taskPriority = taskList.get(task.getNameTaskList()).size() + 1;
+            taskID = taskList.get(task.getNameTaskList()).size() + 1;
         }
-        if (task.getOptionCreation().equals("2")) {
+        if (task.getTaskMakeOption().equals("2")) {
             taskList.get(task.getNameTaskList()).put(
-                    taskList.get(task.getNameTaskList()).size() + 1, task.getName());
+                    taskList.get(task.getNameTaskList()).size() + 1, task.getTaskDescription());
             status.get(task.getNameTaskList()).put(
-                    taskList.get(task.getNameTaskList()).size(), task.getStatus());
+                    taskList.get(task.getNameTaskList()).size(), task.getTaskStatus());
         }
         else {
-            taskInDict.put(taskPriority, task.getName());
-            taskList.put(name, (HashMap) taskInDict.clone());
-            statusInDict.put(taskPriority, task.getStatus());
-            status.put(name, (HashMap) statusInDict.clone());
+            taskInDict.put(taskID, task.getTaskDescription());
+            taskList.put(nameTaskList, (HashMap) taskInDict.clone());
+            statusInDict.put(taskID, task.getTaskStatus());
+            status.put(nameTaskList, (HashMap) statusInDict.clone());
         }
     }
     public void printTaskList() {
@@ -66,16 +65,16 @@ public class TaskList{
         }
         return exists;
     }
-    public String getTaskDescription(String nameOfList, int idTask) {
-        return (String) taskList.get(nameOfList).get(idTask);
+    public String getTaskDescription(String nameTaskList, int taskID) {
+        return (String) taskList.get(nameTaskList).get(taskID);
     }
-    public void editTaskDescription(String nameOfList, int idTask, String newTaskDescription) {
-        HashMap task = taskList.get(nameOfList);
-        task.put(idTask, newTaskDescription);
+    public void editTaskDescription(String nameTaskList, int taskID, String newTaskDescription) {
+        HashMap task = taskList.get(nameTaskList);
+        task.put(taskID, newTaskDescription);
     }
-    public void editStatusTask(String nameOfList, int idTask, String newStatus) {
-        HashMap task = status.get(nameOfList);
-        task.put(idTask, newStatus);
+    public void editStatusTask(String nameTaskList, int taskID, String newStatus) {
+        HashMap task = status.get(nameTaskList);
+        task.put(taskID, newStatus);
     }
     public void deleteStatusList(String nameTaskList) {
         status.remove(nameTaskList);
@@ -84,9 +83,9 @@ public class TaskList{
         taskList.remove(nameTaskList);
         deleteStatusList(nameTaskList);
     }
-    public void deleteTask(String nameTaskList, int idTask) {
-        int idTaskForMapTasks = idTask;
-        int idTaskForMapStatus = idTask;
+    public void deleteTask(String nameTaskList, int taskID) {
+        int idTaskForMapTasks = taskID;
+        int idTaskForMapStatus = taskID;
 
         HashMap mapTasks = taskList.get(nameTaskList);
         HashMap mapTasksCopy = (HashMap) mapTasks.clone();
