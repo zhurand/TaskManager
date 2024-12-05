@@ -43,6 +43,18 @@ public class Main {
                     if (tasks == null) {
                         tasks = new TaskList(nameTaskList);
                     }
+                    else if (tasks.existsTaskList(nameTaskList)) {
+                        System.out.println("\nСписок с таким именем уже создан!");
+                        break;
+                    }
+                    else if (nameTaskList.isEmpty()) {
+                        System.out.println("\nОшибка! Название списка не может быть пустым");
+                        break;
+                    }
+                    else if (nameTaskList.isBlank()) {
+                        System.out.println("\nОшибка! Название списка не может состоять из одних лишь пробелов");
+                        break;
+                    }
                     else {
                         tasks.setNameTaskList(nameTaskList);
                     }
