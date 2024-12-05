@@ -144,9 +144,20 @@ public class Main {
                                 }
                                 case "4": {
                                     System.out.print("Введите номер задачи, чтобы удалить ее: ");
-                                    int taskID = Integer.parseInt(scanner.nextLine());
-                                    tasks.deleteTask(nameTaskList, taskID);
-                                    break;
+                                    try {
+                                        int taskID = Integer.parseInt(scanner.nextLine());
+                                        if (tasks.getTaskDescription(nameTaskList, taskID) == null) {
+                                            System.out.println("\nОшибка! Не найден номер задачи");
+                                            break;
+                                        }
+                                        tasks.deleteTask(nameTaskList, taskID);
+                                    }
+                                    catch (NumberFormatException e) {
+                                        System.out.println("\nОшибка! Номер задачи должен быть числом");
+                                    }
+                                    finally {
+                                        break;
+                                    }
                                 }
                             }
                         }
