@@ -83,7 +83,7 @@ public class Main {
                         else {
                             System.out.print(
                                     "1 - Редактировать описание задачи\n" +
-                                    "2 - Изменить статус задачи (да - задача выполнена, нет - не выполнена)\n" +
+                                    "2 - Изменить статус задачи\n" +
                                     "3 - Добавить задачу\n" +
                                     "4 - Удалить задачу\n");
                             System.out.print("Введите номер опции: ");
@@ -113,11 +113,27 @@ public class Main {
                                 }
                                 case "2": {
                                     System.out.print("Введите номер задачи: ");
-                                    int taskID = Integer.parseInt(scanner.nextLine());
-                                    System.out.print("Введите новый статус для задачи: ");
-                                    String newStatus = scanner.nextLine();
-                                    tasks.editStatusTask(nameTaskList, taskID, newStatus);
-                                    break;
+                                    try {
+                                        int taskID = Integer.parseInt(scanner.nextLine());
+                                        if (tasks.getTaskDescription(nameTaskList, taskID) == null) {
+                                            System.out.println("\nОшибка! Не найден номер задачи");
+                                            break;
+                                        }
+                                        System.out.print("[да - задача выполнена, нет - задача не выполнена]\nВведите новый статус для задачи: ");
+                                        String newStatus = scanner.nextLine();
+                                        if (newStatus.equals("да") | newStatus.equals("нет")) {
+                                            tasks.editStatusTask(nameTaskList, taskID, newStatus);
+                                        }
+                                        else {
+                                            System.out.println("\nОшибка! Вы ввели недопустимое значение для статуса задачи");
+                                        }
+                                    }
+                                    catch (NumberFormatException e) {
+                                        System.out.println("\nОшибка! Номер задачи должен быть числом");
+                                    }
+                                    finally {
+                                        break;
+                                    }
                                 }
                                 case "3": {
                                     System.out.print("Введите задачу: ");

@@ -52,7 +52,7 @@ public class TaskList{
                         status.get(key).get(iter) + "]");
                 iter += 1;
             }
-            System.out.print("----------");
+            System.out.print("----------\n");
         }
     }
     public Boolean existsTaskList(String nameTaskList) {
