@@ -79,14 +79,25 @@ public class Main {
                             switch (optionEditTaskList) {
                                 case "1": {
                                     System.out.print("Введите номер задачи: ");
-                                    int taskID = Integer.parseInt(scanner.nextLine());
-                                    System.out.print(
-                                            "Вы хотите изменить задачу: " +
-                                            tasks.getTaskDescription(nameTaskList, taskID) + "\n");
-                                    System.out.print("Введите новое описание задачи: ");
-                                    String newTaskDescription = scanner.nextLine();
-                                    tasks.editTaskDescription(nameTaskList, taskID, newTaskDescription);
-                                    break;
+                                    try {
+                                        int taskID = Integer.parseInt(scanner.nextLine());
+                                        if (tasks.getTaskDescription(nameTaskList, taskID) == null) {
+                                            System.out.println("\nОшибка! Не найден номер задачи");
+                                            break;
+                                        }
+                                        System.out.print(
+                                                "Вы хотите изменить задачу: " +
+                                                        tasks.getTaskDescription(nameTaskList, taskID) + "\n");
+                                        System.out.print("Введите новое описание задачи: ");
+                                        String newTaskDescription = scanner.nextLine();
+                                        tasks.editTaskDescription(nameTaskList, taskID, newTaskDescription);
+                                    }
+                                    catch (NumberFormatException e) {
+                                        System.out.println("\nОшибка! Номер задачи должен быть числом");
+                                    }
+                                    finally {
+                                        break;
+                                    }
                                 }
                                 case "2": {
                                     System.out.print("Введите номер задачи: ");
