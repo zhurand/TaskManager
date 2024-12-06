@@ -10,6 +10,7 @@ public class TaskList{
     public TaskList(String nameTaskList) {
         this.nameTaskList = nameTaskList;
         taskList.put(this.nameTaskList, taskInDict);
+//        status.put(this.nameTaskList, statusInDict);
     }
     public String getNameTaskList() {
         return nameTaskList;
@@ -43,10 +44,6 @@ public class TaskList{
         for (String key : taskList.keySet()) {
             System.out.print("\n### " + key + " ###\n");
             int iter = 1;
-            if (taskList.get(key).values().isEmpty()) {
-                System.out.print("Список пуст\n" + "----------");
-                break;
-            }
             for (Object value : taskList.get(key).values()) {
                 System.out.println(iter + " " + value + " [" +
                         status.get(key).get(iter) + "]");
@@ -104,5 +101,8 @@ public class TaskList{
         }
         mapStatus.remove(mapStatus.size());
         mapStatusCopy.clear();
+    }
+    public int sizeTaskList(String nameTaskList) {
+        return taskList.get(nameTaskList).size();
     }
 }

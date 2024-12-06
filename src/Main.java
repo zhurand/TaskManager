@@ -23,6 +23,7 @@ public class Main {
     public static void main(String[] args) {
         TaskList tasks = null;
         Task task = null;
+        int sizeTaskList = 0;
         System.out.print(
                         "1 - Создать список задач\n" +
                         "2 - Редактировать список задач\n" +
@@ -38,47 +39,59 @@ public class Main {
             }
             switch (option) {
                 case "1": {
-                    System.out.print("Введите название для списка задач: ");
+                    System.out.print("\nВведите название для списка задач: ");
                     String nameTaskList = scanner.nextLine();
-                    if (tasks == null) {
+                    if (tasks == null & !nameTaskList.isEmpty() & !nameTaskList.isBlank()) {
                         tasks = new TaskList(nameTaskList);
                     }
-                    else if (tasks.existsTaskList(nameTaskList)) {
-                        System.out.println("\nСписок с таким именем уже создан!");
-                        break;
-                    }
                     else if (nameTaskList.isEmpty()) {
-                        System.out.println("\nОшибка! Название списка не может быть пустым");
+                        System.out.println("\n-> Ошибка! Название списка не может быть пустым");
                         break;
                     }
                     else if (nameTaskList.isBlank()) {
-                        System.out.println("\nОшибка! Название списка не может состоять из одних лишь пробелов");
+                        System.out.println("\n-> Ошибка! Название списка не может состоять из одних лишь пробелов");
+                        break;
+                    }
+                    else if (tasks.existsTaskList(nameTaskList)) {
+                        System.out.println("\n-> Список с таким именем уже создан!");
                         break;
                     }
                     else {
                         tasks.setNameTaskList(nameTaskList);
                     }
+                    System.out.println("[чтобы завершить ввод задач, введите 0]");
                     while (true) {
                         System.out.print("Введите задачу: ");
                         String taskDescription = scanner.nextLine();
-                        if (taskDescription.isEmpty()) {
+                        if (taskDescription.equals("0")) {
                             break;
                         }
-                        task = new Task(nameTaskList, taskDescription, option);
-                        tasks.addTask(task);
+                        if (taskDescription.isBlank()) {
+                            System.out.println("\n-> Ошибка! Задача должна иметь описание\n");
+                        }
+                        else {
+                            task = new Task(nameTaskList, taskDescription, option);
+                            tasks.addTask(task);
+                            sizeTaskList = tasks.sizeTaskList(nameTaskList);
+                        }
+                    }
+                    if (tasks.sizeTaskList(nameTaskList) == 0) {
+                        sizeTaskList = tasks.sizeTaskList(nameTaskList);
+                        tasks.deleteTaskList(nameTaskList);
+                        tasks = null;
                     }
                     break;
                 }
                 case "2": {
                     if (tasks == null) {
-                        System.out.println("Нет созданных списков");
+                        System.out.println("\n-> Нет созданных списков");
                         break;
                     }
                     else {
                         System.out.print("Введите имя списка, которое хотите редактировать: ");
                         String nameTaskList = scanner.nextLine();
                         if (!tasks.existsTaskList(nameTaskList)) {
-                            System.out.println("Список задач с таким именем не найден");
+                            System.out.println("\n-> Список задач с таким именем не найден");
                         }
                         else {
                             System.out.print(
@@ -94,7 +107,7 @@ public class Main {
                                     try {
                                         int taskID = Integer.parseInt(scanner.nextLine());
                                         if (tasks.getTaskDescription(nameTaskList, taskID) == null) {
-                                            System.out.println("\nОшибка! Не найден номер задачи");
+                                            System.out.println("\n-> Ошибка! Не найден номер задачи");
                                             break;
                                         }
                                         System.out.print(
@@ -105,7 +118,7 @@ public class Main {
                                         tasks.editTaskDescription(nameTaskList, taskID, newTaskDescription);
                                     }
                                     catch (NumberFormatException e) {
-                                        System.out.println("\nОшибка! Номер задачи должен быть числом");
+                                        System.out.println("\n-> Ошибка! Номер задачи должен быть числом");
                                     }
                                     finally {
                                         break;
@@ -116,7 +129,7 @@ public class Main {
                                     try {
                                         int taskID = Integer.parseInt(scanner.nextLine());
                                         if (tasks.getTaskDescription(nameTaskList, taskID) == null) {
-                                            System.out.println("\nОшибка! Не найден номер задачи");
+                                            System.out.println("\n-> Ошибка! Не найден номер задачи");
                                             break;
                                         }
                                         System.out.print("[да - задача выполнена, нет - задача не выполнена]\nВведите новый статус для задачи: ");
@@ -125,11 +138,11 @@ public class Main {
                                             tasks.editStatusTask(nameTaskList, taskID, newStatus);
                                         }
                                         else {
-                                            System.out.println("\nОшибка! Вы ввели недопустимое значение для статуса задачи");
+                                            System.out.println("\n-> Ошибка! Вы ввели недопустимое значение для статуса задачи");
                                         }
                                     }
                                     catch (NumberFormatException e) {
-                                        System.out.println("\nОшибка! Номер задачи должен быть числом");
+                                        System.out.println("\n-> Ошибка! Номер задачи должен быть числом");
                                     }
                                     finally {
                                         break;
@@ -147,13 +160,13 @@ public class Main {
                                     try {
                                         int taskID = Integer.parseInt(scanner.nextLine());
                                         if (tasks.getTaskDescription(nameTaskList, taskID) == null) {
-                                            System.out.println("\nОшибка! Не найден номер задачи");
+                                            System.out.println("\n-> Ошибка! Не найден номер задачи");
                                             break;
                                         }
                                         tasks.deleteTask(nameTaskList, taskID);
                                     }
                                     catch (NumberFormatException e) {
-                                        System.out.println("\nОшибка! Номер задачи должен быть числом");
+                                        System.out.println("\n-> Ошибка! Номер задачи должен быть числом");
                                     }
                                     finally {
                                         break;
@@ -166,39 +179,39 @@ public class Main {
                 }
                 case "3": {
                     if (tasks == null) {
-                        System.out.println("Нет созданных списков");
+                        System.out.println("\n-> Нет созданных списков");
                         break;
                     }
                     System.out.print("Введите название списка, чтобы его удалить: ");
                     String nameTaskList = scanner.nextLine();
                     if (!tasks.existsTaskList(nameTaskList)) {
-                        System.out.print("Список задач с таким именем не найден");
+                        System.out.println("\n-> Список задач с таким именем не найден");
                     }
                     else {
                         System.out.print("Список задач " + "\"" + nameTaskList + "\"" + " будет удален.\n" +
-                                "Вы уверены? (1 - подтверждаю/ 0 - отмена)\n");
+                                "Вы уверены? (1 - подтверждаю/ 0 - отмена)\nПодтвердите свое согласие: ");
                         String answer = scanner.nextLine();
                         if (answer.equals("1")) {
                             tasks.deleteTaskList(nameTaskList);
-                            System.out.print("Список " + "\"" + nameTaskList + "\"" + " был удален.");
+                            System.out.println("-> Список " + "\"" + nameTaskList + "\"" + " был удален.");
                         }
                         else if (answer.equals("0")) {
                             break;
                         }
                         else {
-                            System.out.print("Некорректный ввод");
+                            System.out.println("-> Некорректный ввод");
                             break;
                         }
                     }
                     break;
                 }
                 case "4": {
-                    if (tasks != null) {
+                    if (tasks != null & sizeTaskList != 0) {
                         tasks.printTaskList();
                         break;
                     }
                     else {
-                        System.out.println("Нет созданных списков");
+                        System.out.println("\n-> Нет созданных списков");
                         break;
                     }
                 }
