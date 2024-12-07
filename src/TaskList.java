@@ -42,6 +42,9 @@ public class TaskList{
     public void printTaskList() {
         for (String key : taskList.keySet()) {
             System.out.print("\n### " + key + " ###\n");
+            if (taskList.get(key).isEmpty()) {
+                System.out.println("Список пуст");
+            }
             int iter = 1;
             for (Object value : taskList.get(key).values()) {
                 System.out.println(iter + " " + value + " [" +

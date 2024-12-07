@@ -68,6 +68,12 @@ public class Main {
                             sizeTaskList = tasks.sizeTaskList(nameTaskList);
                         }
                     }
+                    /*
+                    Проверяем размер списка задачи.
+                    Если размер списка задачи равен <0>, то это означает, что список не содержит задач,
+                    то есть он пустой. Такой список не сохраняем.
+                    Удаляем из словаря ключ <nameTaskList>.
+                     */
                     if (tasks.sizeTaskList(nameTaskList) == 0) {
                         sizeTaskList = tasks.sizeTaskList(nameTaskList);
                         tasks.deleteTaskList(nameTaskList);
