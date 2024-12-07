@@ -10,7 +10,6 @@ public class TaskList{
     public TaskList(String nameTaskList) {
         this.nameTaskList = nameTaskList;
         taskList.put(this.nameTaskList, taskInDict);
-//        status.put(this.nameTaskList, statusInDict);
     }
     public String getNameTaskList() {
         return nameTaskList;

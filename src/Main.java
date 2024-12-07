@@ -59,7 +59,7 @@ public class Main {
                     else {
                         tasks.setNameTaskList(nameTaskList);
                     }
-                    System.out.println("[чтобы завершить ввод задач, введите 0]");
+                    System.out.println("[чтобы завершить ввод задач введите 0]");
                     while (true) {
                         System.out.print("Введите задачу: ");
                         String taskDescription = scanner.nextLine();
