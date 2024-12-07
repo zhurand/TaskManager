@@ -104,4 +104,7 @@ public class TaskList{
     public int sizeTaskList(String nameTaskList) {
         return taskList.get(nameTaskList).size();
     }
+    public int size() {
+        return taskList.size();
+    }
 }

@@ -182,7 +182,7 @@ public class Main {
                         System.out.println("\n-> Нет созданных списков");
                         break;
                     }
-                    System.out.print("Введите название списка, чтобы его удалить: ");
+                    System.out.print("\nВведите название списка, чтобы его удалить: ");
                     String nameTaskList = scanner.nextLine();
                     if (!tasks.existsTaskList(nameTaskList)) {
                         System.out.println("\n-> Список задач с таким именем не найден");
@@ -193,13 +193,22 @@ public class Main {
                         String answer = scanner.nextLine();
                         if (answer.equals("1")) {
                             tasks.deleteTaskList(nameTaskList);
-                            System.out.println("-> Список " + "\"" + nameTaskList + "\"" + " был удален.");
+                            System.out.println("\n-> Список " + "\"" + nameTaskList + "\"" + " был удален.");
+                            /*
+                            После удаления списка задач проверяем размер словаря со всеми списками,
+                            и если список пустой, то инициализируем его как null,
+                            иначе после удаления всех списков задач, кейсы <2,3,4> переключателя option
+                            не будут корректно отрабатывать.
+                             */
+                            if (tasks.size() == 0) {
+                                tasks = null;
+                            }
                         }
                         else if (answer.equals("0")) {
                             break;
                         }
                         else {
-                            System.out.println("-> Некорректный ввод");
+                            System.out.println("\n-> Некорректный ввод");
                             break;
                         }
                     }
