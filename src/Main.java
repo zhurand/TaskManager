@@ -77,12 +77,15 @@ public class Main {
                     if (tasks.sizeTaskList(nameTaskList) == 0) {
                         sizeTaskList = tasks.sizeTaskList(nameTaskList);
                         tasks.deleteTaskList(nameTaskList);
-                        tasks = null;
                     }
                     break;
                 }
                 case "2": {
                     if (tasks == null) {
+                        System.out.println("\n-> Нет созданных списков");
+                        break;
+                    }
+                    if (sizeTaskList == 0 & tasks.size() == 0) {
                         System.out.println("\n-> Нет созданных списков");
                         break;
                     }
@@ -181,6 +184,10 @@ public class Main {
                         System.out.println("\n-> Нет созданных списков");
                         break;
                     }
+                    if (sizeTaskList == 0 & tasks.size() == 0) {
+                        System.out.println("\n-> Нет созданных списков");
+                        break;
+                    }
                     System.out.print("\nВведите название списка, чтобы его удалить: ");
                     String nameTaskList = scanner.nextLine();
                     if (!tasks.existsTaskList(nameTaskList)) {
@@ -214,14 +221,16 @@ public class Main {
                     break;
                 }
                 case "4": {
-                    if (tasks != null & sizeTaskList != 0) {
+                    if (tasks != null) {
+                        if (sizeTaskList == 0 & tasks.size() == 0) {
+                            System.out.println("\n-> Нет созданных списков");
+                        }
                         tasks.printTaskList();
-                        break;
                     }
                     else {
                         System.out.println("\n-> Нет созданных списков");
-                        break;
                     }
+                    break;
                 }
             }
         }

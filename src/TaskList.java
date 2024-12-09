@@ -171,7 +171,14 @@ public class TaskList{
      * @param nameTaskList имя списка задач
      * @return возвращает размер списка задач */
     public int sizeTaskList(String nameTaskList) {
-        return taskList.get(nameTaskList).size();
+        int size = 0;
+        if (taskList.get(nameTaskList) == null) {
+            size = 0;
+        }
+        else {
+            size = taskList.get(nameTaskList).size();
+        }
+        return size;
     }
     /** Функция получения размера словара со списками задач
      * @return возвращает размер словаря со списками задач */
